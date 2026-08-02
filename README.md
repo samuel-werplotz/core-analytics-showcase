@@ -24,6 +24,14 @@ O **Core Analytics** é uma plataforma SaaS criada para resolver o problema de i
 
 ---
 
+## 📚 Documentação de Destaque
+
+- [📑 **Estudo de Caso: Orquestração de IA**](docs/CASE_STUDY_AI_ORCHESTRATION.md) — Como guiamos a IA para construir um software pronto para produção.
+- [💼 **Guia Executivo de Bolso**](docs/PORTFOLIO_EXECUTIVE_SUMMARY.md) — Pitch, diferenciais de engenharia e perguntas de entrevista.
+- [🤖 **AI Harness Directives (`AGENTS.md`)**](AGENTS.md) — As regras estritas fornecidas à IA durante o desenvolvimento.
+
+---
+
 ## 🏗️ Arquitetura do Sistema
 
 ```mermaid
@@ -71,7 +79,7 @@ flowchart TD
 
 ## 🤖 Como a IA foi Orquestrada (AI Harness)
 
-Um dos maiores diferenciais deste projeto foi o **método de desenvolvimento**. Em vez de usar IA para apenas gerar trechos isolados de código, o projeto usou um **sistema completo de governança para agentes de IA** (`AGENTS.md` / `AI_HARNESS.md`).
+Um dos maiores diferenciais deste projeto foi o **método de desenvolvimento**. Em vez de usar IA para apenas gerar trechos isolados de código, o projeto usou um **sistema completo de governança para agentes de IA** (`AGENTS.md`).
 
 ### Protocolos de Governança Aplicados:
 
@@ -120,16 +128,6 @@ sequenceDiagram
 - **Sessões DuckDB Isoladas & Thread-Safe:** A engine DuckDB roda em um ambiente controlado por semáforo global (`services/duckdb_session.py`), garantindo limites de memória (`memory_limit`) e concorrência pré-definida (`DUCKDB_THREADS=1`) para evitar estouro de recursos na VPS.
 - **Proteção contra Brute Force e Rate Limit:** Zonas de limitação de requisições no Nginx (`limit_req`) respondendo HTTP 429 com header `Retry-After: 1`.
 - **Embeds Assinados:** Dashboards compartilhados externamente utilizam tokens criptográficos de acesso único e restrição de origem (`allowlist`), sem expor a sessão do usuário.
-
----
-
-## 🧪 Suíte de Testes e Validação
-
-O projeto conta com uma cobertura extensiva de testes automatizados organizados em:
-
-- **Testes de Isolamento Multi-Tenant:** Garantem que a Organização A nunca consiga acessar os datasets, gráficos ou dashboards da Organização B.
-- **Testes de Ingestão de Dados:** Cobertura de cenários limites (arquivos corrompidos, colunas com caracteres especiais, codificações UTF-8/ISO-8859-1, tipos de dados ambíguos).
-- **Testes de Segurança de Embeds:** Validação de expiração de token, tokens revogados e tentativas de alteração de payload.
 
 ---
 
